@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
-import XLSX from 'xlsx';
+import * as XLSX from 'xlsx';
 import { NextRequest, NextResponse } from 'next/server';
 import { getSessionOrgScope } from '../../../../../../lib/org';
 import { datasetArtifacts, readWorkspace } from '../../../../../../lib/fraud/server-storage';

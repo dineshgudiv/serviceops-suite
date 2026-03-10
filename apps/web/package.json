@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "clean:next": "node ./scripts/clean-next.mjs",
     "dev": "next dev -p 3000",
     "build": "next build",
+    "verify:build": "node ./scripts/verify-build.mjs",
     "start": "next start -p 3000",
     "lint": "next lint",
     "typecheck": "node ./scripts/typecheck.mjs",
