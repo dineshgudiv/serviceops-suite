@@ -1,0 +1,6 @@
+* @platform-team
+/docs/ @architecture-team
+/services/auth-service/ @security-team
+/services/itsm-service/ @itsm-team
+/services/knowledge-service/ @ai-platform-team
+/shared/contracts/ @platform-team @architecture-team

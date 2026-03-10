@@ -1,0 +1,20 @@
+server:
+  port: ${SERVER_PORT:8084}
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:serviceops}
+    username: ${DB_USER:serviceops}
+    password: ${DB_PASSWORD:serviceops}
+  flyway:
+    default-schema: cmdb
+    schemas: cmdb
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${AUTH_JWKS_URI:http://localhost:8081/.well-known/jwks.json}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

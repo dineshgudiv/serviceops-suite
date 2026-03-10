@@ -1,0 +1,46 @@
+server:
+  port: ${SERVER_PORT:8081}
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:serviceops}
+    username: ${DB_USER:serviceops}
+    password: ${DB_PASSWORD:serviceops}
+  mail:
+    host: ${SPRING_MAIL_HOST:localhost}
+    port: ${SPRING_MAIL_PORT:1025}
+    username: ${SPRING_MAIL_USERNAME:}
+    password: ${SPRING_MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: ${SPRING_MAIL_SMTP_AUTH:false}
+          starttls:
+            enable: ${SPRING_MAIL_SMTP_STARTTLS_ENABLE:false}
+          connectiontimeout: ${SPRING_MAIL_TIMEOUT_MS:5000}
+          timeout: ${SPRING_MAIL_TIMEOUT_MS:5000}
+          writetimeout: ${SPRING_MAIL_TIMEOUT_MS:5000}
+  flyway:
+    default-schema: auth
+    schemas: auth
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+app:
+  jwt:
+    issuer: ${JWT_ISSUER:serviceops-auth}
+    ttl-seconds: ${JWT_TTL_SECONDS:3600}
+  invite:
+    ttl-hours: ${INVITE_TTL_HOURS:48}
+  reset:
+    ttl-minutes: ${RESET_TTL_MINUTES:30}
+  verification:
+    ttl-hours: ${VERIFICATION_TTL_HOURS:24}
+  password:
+    min-length: ${PASSWORD_MIN_LENGTH:12}
+  mail:
+    dev-mode: ${MAIL_DEV_MODE:true}
+    base-url: ${MAIL_BASE_URL:http://localhost:3000}
+    from: ${MAIL_FROM:no-reply@serviceops.local}
+    mailbox-url: ${MAILBOX_URL:}

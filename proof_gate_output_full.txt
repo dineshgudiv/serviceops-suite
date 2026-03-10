@@ -1,0 +1,640 @@
+[up] Starting real ServiceOps stack...
+ Image serviceops-web Building 
+ Image serviceops-workflow-service Building 
+ Image serviceops-itsm-service Building 
+ Image serviceops-sla-service Building 
+ Image serviceops-knowledge-service Building 
+ Image serviceops-auth-service Building 
+ Image serviceops-cmdb-service Building 
+ Image serviceops-audit-service Building 
+ Image serviceops-integrations-service Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 5.04kB 0.0s done
+#1 DONE 0.0s
+
+#2 [sla-service internal] load build definition from Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 314B 0.1s done
+#2 ...
+
+#3 [audit-service internal] load build definition from Dockerfile
+#3 transferring dockerfile: 316B 0.1s done
+#3 DONE 0.3s
+
+#4 [auth-service internal] load build definition from Dockerfile
+#4 transferring dockerfile: 316B 0.1s done
+#4 DONE 0.4s
+
+#2 [sla-service internal] load build definition from Dockerfile
+#2 DONE 0.5s
+
+#5 [integrations-service internal] load build definition from Dockerfile
+#5 transferring dockerfile: 323B 0.1s done
+#5 DONE 0.5s
+
+#6 [cmdb-service internal] load build definition from Dockerfile
+#6 transferring dockerfile: 315B 0.1s done
+#6 DONE 0.5s
+
+#7 [itsm-service internal] load build definition from Dockerfile
+#7 transferring dockerfile: 315B 0.1s done
+#7 DONE 0.5s
+
+#8 [integrations-service internal] load metadata for docker.io/library/maven:3.9.9-eclipse-temurin-21
+#8 ...
+
+#9 [web internal] load build definition from Dockerfile
+#9 transferring dockerfile: 497B 0.1s done
+#9 DONE 0.6s
+
+#10 [workflow-service internal] load build definition from Dockerfile
+#10 transferring dockerfile: 319B 0.1s done
+#10 DONE 0.6s
+
+#8 [workflow-service internal] load metadata for docker.io/library/maven:3.9.9-eclipse-temurin-21
+#8 ...
+
+#11 [knowledge-service internal] load build definition from Dockerfile
+#11 transferring dockerfile: 320B 0.0s done
+#11 DONE 0.8s
+
+#12 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+#12 DONE 0.0s
+
+#8 [knowledge-service internal] load metadata for docker.io/library/maven:3.9.9-eclipse-temurin-21
+#8 DONE 0.6s
+
+#13 [web internal] load metadata for docker.io/library/node:20-alpine
+#13 DONE 0.5s
+
+#14 [web internal] load .dockerignore
+#14 transferring context: 32B 0.0s
+#14 transferring context: 107B 0.0s done
+#14 DONE 0.1s
+
+#15 [knowledge-service internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#15 ...
+
+#16 [web internal] load build context
+#16 DONE 0.0s
+
+#17 [web deps 1/4] FROM docker.io/library/node:20-alpine@sha256:09e2b3d9726018aecf269bd35325f46bf75046a643a66d28360ec71132750ec8
+#17 resolve docker.io/library/node:20-alpine@sha256:09e2b3d9726018aecf269bd35325f46bf75046a643a66d28360ec71132750ec8 0.1s done
+#17 DONE 0.2s
+
+#16 [web internal] load build context
+#16 transferring context: 6.77kB 0.1s done
+#16 DONE 0.1s
+
+#15 [knowledge-service internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#15 ...
+
+#18 [web deps 2/4] WORKDIR /app
+#18 CACHED
+
+#19 [web runtime 3/5] COPY --from=build /app/.next/standalone ./
+#19 CACHED
+
+#20 [web deps 3/4] COPY package.json package-lock.json* ./
+#20 CACHED
+
+#21 [web deps 4/4] RUN npm install
+#21 CACHED
+
+#22 [web build 3/5] COPY --from=deps /app/node_modules ./node_modules
+#22 CACHED
+
+#23 [web build 4/5] COPY . .
+#23 CACHED
+
+#24 [web build 5/5] RUN npm run build
+#24 CACHED
+
+#25 [web runtime 4/5] COPY --from=build /app/.next/static ./.next/static
+#25 CACHED
+
+#26 [web runtime 5/5] COPY --from=build /app/public ./public
+#26 CACHED
+
+#27 [web] exporting to image
+#27 exporting layers 0.0s done
+#27 exporting manifest sha256:15fa8f97fdc0357d4dde2149d6e16d551859197c44c1ae3805b4141f86092a5c done
+#27 exporting config sha256:b190ad660efe007baa392858652d4c3ea6c02317cac16b36fc29287f582c473c 0.0s done
+#27 exporting attestation manifest sha256:788d6617e24a74798b650a9c39f79a7d60e949e346f70548cd02745cc33f001b 0.1s done
+#27 exporting manifest list sha256:10ea3bf9a9d627cad6f593394c0fe2e3c085ec76c6a4c7dffa027cc3a890097e
+#27 exporting manifest list sha256:10ea3bf9a9d627cad6f593394c0fe2e3c085ec76c6a4c7dffa027cc3a890097e 0.8s done
+#27 naming to docker.io/library/serviceops-web:latest 0.0s done
+#27 unpacking to docker.io/library/serviceops-web:latest 0.1s done
+#27 DONE 1.2s
+
+#15 [integrations-service internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#15 DONE 3.4s
+
+#28 [cmdb-service internal] load .dockerignore
+#28 transferring context: 2B 0.0s done
+#28 DONE 0.3s
+
+#29 [auth-service internal] load .dockerignore
+#29 transferring context: 2B 0.0s done
+#29 DONE 0.3s
+
+#30 [integrations-service internal] load .dockerignore
+#30 transferring context: 2B 0.0s done
+#30 DONE 0.3s
+
+#31 [audit-service internal] load .dockerignore
+#31 transferring context: 2B done
+#31 ...
+
+#32 [auth-service internal] load build context
+#32 DONE 0.0s
+
+#33 [itsm-service internal] load .dockerignore
+#33 transferring context: 2B 0.0s done
+#33 DONE 0.4s
+
+#34 [integrations-service internal] load build context
+#34 DONE 0.0s
+
+#35 [workflow-service internal] load .dockerignore
+#35 transferring context: 2B 0.0s done
+#35 DONE 0.5s
+
+#36 [cmdb-service internal] load build context
+#36 DONE 0.0s
+
+#31 [audit-service internal] load .dockerignore
+#31 DONE 0.6s
+
+#37 [cmdb-service build 1/5] FROM docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e
+#37 resolve docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e
+#37 ...
+
+#38 [itsm-service internal] load build context
+#38 DONE 0.0s
+
+#37 [cmdb-service build 1/5] FROM docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e
+#37 resolve docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e 0.3s done
+#37 resolve docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e 0.3s done
+#37 DONE 0.3s
+
+#39 [sla-service internal] load .dockerignore
+#39 transferring context: 2B 0.0s done
+#39 DONE 0.7s
+
+#40 [knowledge-service internal] load .dockerignore
+#40 transferring context: 2B 0.0s done
+#40 DONE 0.7s
+
+#41 [auth-service stage-1 1/3] FROM docker.io/library/eclipse-temurin:21-jre@sha256:34a58218d838035428163eb35abb629944c5906d1bedcfef8bc8864cce11dfe5
+#41 resolve docker.io/library/eclipse-temurin:21-jre@sha256:34a58218d838035428163eb35abb629944c5906d1bedcfef8bc8864cce11dfe5 0.3s done
+#41 DONE 0.4s
+
+#32 [auth-service internal] load build context
+#32 ...
+
+#37 [knowledge-service build 1/5] FROM docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e
+#37 resolve docker.io/library/maven:3.9.9-eclipse-temurin-21@sha256:3a4ab3276a087bf276f79cae96b1af04f53731bec53fb2e651aca79e4b10211e 0.3s done
+#37 DONE 0.3s
+
+#41 [knowledge-service stage-1 1/3] FROM docker.io/library/eclipse-temurin:21-jre@sha256:34a58218d838035428163eb35abb629944c5906d1bedcfef8bc8864cce11dfe5
+#41 resolve docker.io/library/eclipse-temurin:21-jre@sha256:34a58218d838035428163eb35abb629944c5906d1bedcfef8bc8864cce11dfe5 0.3s done
+#41 DONE 0.4s
+
+#32 [auth-service internal] load build context
+#32 transferring context: 1.95kB 0.1s done
+#32 DONE 0.3s
+
+#38 [itsm-service internal] load build context
+#38 transferring context: 1.99kB 0.1s done
+#38 DONE 0.2s
+
+#42 [audit-service internal] load build context
+#42 transferring context: 1.43kB 0.0s done
+#42 ...
+
+#34 [integrations-service internal] load build context
+#34 transferring context: 1.41kB 0.1s done
+#34 DONE 0.3s
+
+#43 [workflow-service internal] load build context
+#43 transferring context: 1.31kB 0.1s done
+#43 DONE 0.4s
+
+#36 [cmdb-service internal] load build context
+#36 transferring context: 1.49kB 0.0s done
+#36 DONE 0.4s
+
+#42 [audit-service internal] load build context
+#42 DONE 0.4s
+
+#44 [sla-service internal] load build context
+#44 transferring context: 1.32kB 0.0s done
+#44 DONE 0.3s
+
+#45 [knowledge-service internal] load build context
+#45 transferring context: 1.85kB 0.0s done
+#45 DONE 0.4s
+
+#46 [itsm-service build 5/5] RUN mvn -q -DskipTests package
+#46 CACHED
+
+#47 [itsm-service build 3/5] COPY pom.xml .
+#47 CACHED
+
+#48 [itsm-service build 4/5] COPY src ./src
+#48 CACHED
+
+#49 [itsm-service stage-1 2/3] WORKDIR /app
+#49 CACHED
+
+#50 [itsm-service build 2/5] WORKDIR /app
+#50 CACHED
+
+#51 [itsm-service stage-1 3/3] COPY --from=build /app/target/itsm-service-0.1.0.jar app.jar
+#51 CACHED
+
+#52 [knowledge-service build 5/5] RUN mvn -q -DskipTests package
+#52 CACHED
+
+#53 [knowledge-service build 3/5] COPY pom.xml .
+#53 CACHED
+
+#54 [knowledge-service build 4/5] COPY src ./src
+#54 CACHED
+
+#55 [knowledge-service stage-1 3/3] COPY --from=build /app/target/knowledge-service-0.1.0.jar app.jar
+#55 CACHED
+
+#56 [sla-service build 4/5] COPY src ./src
+#56 CACHED
+
+#57 [sla-service build 5/5] RUN mvn -q -DskipTests package
+#57 CACHED
+
+#58 [sla-service build 3/5] COPY pom.xml .
+#58 CACHED
+
+#49 [knowledge-service stage-1 2/3] WORKDIR /app
+#49 CACHED
+
+#50 [knowledge-service build 2/5] WORKDIR /app
+#50 CACHED
+
+#59 [sla-service stage-1 3/3] COPY --from=build /app/target/sla-service-0.1.0.jar app.jar
+#59 CACHED
+
+#60 [itsm-service] exporting to image
+#60 exporting layers 0.0s done
+#60 exporting manifest sha256:06d749be31974323677de7d9c0b43013a3cde8a7f20e56feea20ad9bda16255e 0.0s done
+#60 exporting config sha256:0cf0704be445f5d8948962265e200b4ddedfd8bc09cadb5e18d5e73f664639cb done
+#60 ...
+
+#61 [cmdb-service build 3/5] COPY pom.xml .
+#61 CACHED
+
+#62 [cmdb-service build 5/5] RUN mvn -q -DskipTests package
+#62 CACHED
+
+#63 [cmdb-service build 4/5] COPY src ./src
+#63 CACHED
+
+#64 [cmdb-service stage-1 3/3] COPY --from=build /app/target/cmdb-service-0.1.0.jar app.jar
+#64 CACHED
+
+#65 [audit-service build 5/5] RUN mvn -q -DskipTests package
+#65 CACHED
+
+#66 [audit-service build 4/5] COPY src ./src
+#66 CACHED
+
+#67 [audit-service build 3/5] COPY pom.xml .
+#67 CACHED
+
+#68 [audit-service stage-1 3/3] COPY --from=build /app/target/audit-service-0.1.0.jar app.jar
+#68 CACHED
+
+#69 [auth-service build 4/5] COPY src ./src
+#69 CACHED
+
+#70 [auth-service build 5/5] RUN mvn -q -DskipTests package
+#70 CACHED
+
+#71 [auth-service build 3/5] COPY pom.xml .
+#71 CACHED
+
+#72 [auth-service stage-1 3/3] COPY --from=build /app/target/auth-service-0.1.0.jar app.jar
+#72 CACHED
+
+#73 [workflow-service build 3/5] COPY pom.xml .
+#73 CACHED
+
+#74 [workflow-service build 5/5] RUN mvn -q -DskipTests package
+#74 CACHED
+
+#75 [workflow-service build 4/5] COPY src ./src
+#75 CACHED
+
+#76 [workflow-service stage-1 3/3] COPY --from=build /app/target/workflow-service-0.1.0.jar app.jar
+#76 CACHED
+
+#77 [integrations-service build 3/5] COPY pom.xml .
+#77 CACHED
+
+#78 [integrations-service build 5/5] RUN mvn -q -DskipTests package
+#78 CACHED
+
+#49 [auth-service stage-1 2/3] WORKDIR /app
+#49 CACHED
+
+#79 [integrations-service build 4/5] COPY src ./src
+#79 CACHED
+
+#50 [auth-service build 2/5] WORKDIR /app
+#50 CACHED
+
+#80 [integrations-service stage-1 3/3] COPY --from=build /app/target/integrations-service-0.1.0.jar app.jar
+#80 CACHED
+
+#81 [integrations-service] exporting to image
+#81 exporting layers 0.0s done
+#81 exporting manifest sha256:0343ca897032893c1c091fe3ce900e64567dabf932f5f68ffcc05cbcf3c13205 0.2s done
+#81 exporting config sha256:a2f49adb8139da5a44f36a6294a78ac4680809ab48155e053ac5bc38b1ccaff0
+#81 exporting config sha256:a2f49adb8139da5a44f36a6294a78ac4680809ab48155e053ac5bc38b1ccaff0 0.1s done
+#81 exporting attestation manifest sha256:55cff456cb87bc99c031c0a8f1e2e20657abb435cfc9faf2ab74db2583ccbbc2
+#81 exporting attestation manifest sha256:55cff456cb87bc99c031c0a8f1e2e20657abb435cfc9faf2ab74db2583ccbbc2 1.5s done
+#81 exporting manifest list sha256:97c17568b3651decea182ab4861ca322a6e1bb7c5ed40fd1d78f824866069f6b
+#81 exporting manifest list sha256:97c17568b3651decea182ab4861ca322a6e1bb7c5ed40fd1d78f824866069f6b 0.4s done
+#81 naming to docker.io/library/serviceops-integrations-service:latest
+#81 naming to docker.io/library/serviceops-integrations-service:latest 0.1s done
+#81 unpacking to docker.io/library/serviceops-integrations-service:latest
+#81 ...
+
+#60 [itsm-service] exporting to image
+#60 exporting attestation manifest sha256:0803039e8463fafe276b870d0254487f9b066bb0e3e92926ff8f77cdae770458 1.0s done
+#60 exporting manifest list sha256:3eabea076ba4ad1e8644b909aea9639ef916ba954a2ca3f6c20573e669fcb7a9 0.7s done
+#60 naming to docker.io/library/serviceops-itsm-service:latest 0.3s done
+#60 unpacking to docker.io/library/serviceops-itsm-service:latest 0.2s done
+#60 DONE 2.8s
+
+#81 [integrations-service] exporting to image
+#81 unpacking to docker.io/library/serviceops-integrations-service:latest 0.1s done
+#81 DONE 3.0s
+
+#82 [auth-service] exporting to image
+#82 exporting layers 0.1s done
+#82 exporting manifest sha256:481ffb5977639471e0579cee18960ec77fd7088ab60e3dc0f590e1e6c020aef9 0.1s done
+#82 exporting config sha256:adf2f1a36cf5aac01eb8f73b43ddec7bb6b10d2f3f3b7b41c5ce4188140c40fb 0.1s done
+#82 exporting attestation manifest sha256:449b1cf6848771eaf1fdec98a63050f10f83815207bada9df9ddb28432a80747 1.5s done
+#82 exporting manifest list sha256:04fc87438e295a253d2952bdad4572e624446265c2194746f6e34611feed4ec9 0.4s done
+#82 naming to docker.io/library/serviceops-auth-service:latest 0.1s done
+#82 unpacking to docker.io/library/serviceops-auth-service:latest 0.1s done
+#82 DONE 2.9s
+
+#83 [sla-service] exporting to image
+#83 exporting layers 0.1s done
+#83 exporting manifest sha256:eda86b8f263f34731d79a807ec5db4665d941ef7b858400428345f4fe459979a 0.2s done
+#83 exporting config sha256:7825f327cda169719a4768008affba0d5178878c84f061c92b2a3bc5ad01b54d 0.1s done
+#83 exporting attestation manifest sha256:1f5538807db65186a1da07a22941475b4777cfda469d73aa2ee11eefabc42a87 1.5s done
+#83 exporting manifest list sha256:b346e568be1416d8ca07cc51db24d6723ddcf4a8b98ff341792428fbbfd3dc4b 0.3s done
+#83 naming to docker.io/library/serviceops-sla-service:latest 0.1s done
+#83 unpacking to docker.io/library/serviceops-sla-service:latest 0.1s done
+#83 DONE 3.1s
+
+#84 [audit-service] exporting to image
+#84 exporting layers 0.1s done
+#84 exporting manifest sha256:63a83121d648c3e9d3cf121da6d8925ca56686e047d082b798cfeba9366dd449 0.1s done
+#84 exporting config sha256:1e0f67f973e16d900a8c5b05c9a5e457e62e2e86576dbfc8aa86f6dbf4f27258 0.1s done
+#84 exporting attestation manifest sha256:aac6a7f50cf6683dfa1447d34bde848c4329d8844787f0ff656f8af2e4711d67 1.4s done
+#84 exporting manifest list sha256:18548690b6c8abcc25b58fc2dcac1c4049a190bf7b7107583a2c2e0aa1309dec 0.3s done
+#84 naming to docker.io/library/serviceops-audit-service:latest 0.1s done
+#84 unpacking to docker.io/library/serviceops-audit-service:latest 0.2s done
+#84 ...
+
+#85 [knowledge-service] exporting to image
+#85 exporting layers 0.1s done
+#85 exporting manifest sha256:c85e85218e893edc471097e0789c26343bb7be022f50269dc97f6bde9944ae06 0.2s done
+#85 exporting config sha256:6524bad1af3704a5ceb9094d8b9c784a5a58d66f1ffaa2f92189a4e3eeda2510 0.1s done
+#85 exporting attestation manifest sha256:011cd5d96374e84156c0ece4cf1d32e3f55fe4efef8d0f46b2e78cabfe4a5707 1.5s done
+#85 exporting manifest list sha256:b2366b501abafc40448d4fd80be6ae3ee1f20a75b5ea47cfbd33d47cd9e12040 0.3s done
+#85 naming to docker.io/library/serviceops-knowledge-service:latest 0.1s done
+#85 unpacking to docker.io/library/serviceops-knowledge-service:latest 0.1s done
+#85 DONE 3.2s
+
+#86 [cmdb-service] exporting to image
+#86 exporting layers 0.0s done
+#86 exporting manifest sha256:91a683cfda74a9243e34e8cccb663a05f2b1adee0ff803a90d903302f789fa11 0.1s done
+#86 exporting config sha256:518b7c9556918f520ac18bb4d8e3fcd1cc30e932ce271a9193e78812907d5d66 0.1s done
+#86 exporting attestation manifest sha256:9086370c59a72199bf99dcb52d22c9869ab5a4953cdafcfa73190ce22ca80b51 1.5s done
+#86 exporting manifest list sha256:e24e0dfe058e3b05755e11f89a0b7e00648875bb9a76c7889c3eaf5790d3b37b 0.3s done
+#86 naming to docker.io/library/serviceops-cmdb-service:latest 0.1s done
+#86 unpacking to docker.io/library/serviceops-cmdb-service:latest 0.1s done
+#86 DONE 3.0s
+
+#87 [workflow-service] exporting to image
+#87 exporting layers 0.1s done
+#87 exporting manifest sha256:63e44cffa630191c4b46e295e783d6cfa9e008485b29e38443af60dba877aed9 0.1s done
+#87 exporting config sha256:7b4ca85957f5497b88f613c9b7b08683e83680a39ad632aeb4abcdf8ca2f7963 0.1s done
+#87 exporting attestation manifest sha256:4b6540a6abd80317a7662e7f0a7af2e2d9ee747bb0005dde5f3d940f12e27566 1.5s done
+#87 exporting manifest list sha256:aa6a4494cf959757b9caf7fef54513e75daf7b75e7d51a141a5b64bf4b301612 0.3s done
+#87 naming to docker.io/library/serviceops-workflow-service:latest 0.1s done
+#87 unpacking to docker.io/library/serviceops-workflow-service:latest 0.1s done
+#87 DONE 3.2s
+
+#84 [audit-service] exporting to image
+#84 DONE 3.1s
+
+#88 [web] resolving provenance for metadata file
+#88 ...
+
+#89 [itsm-service] resolving provenance for metadata file
+#89 DONE 0.5s
+
+#90 [workflow-service] resolving provenance for metadata file
+#90 ...
+
+#88 [web] resolving provenance for metadata file
+#88 DONE 1.3s
+
+#91 [audit-service] resolving provenance for metadata file
+#91 ...
+
+#92 [integrations-service] resolving provenance for metadata file
+#92 DONE 1.9s
+
+#93 [knowledge-service] resolving provenance for metadata file
+#93 DONE 1.7s
+
+#90 [workflow-service] resolving provenance for metadata file
+#90 DONE 1.4s
+
+#94 [cmdb-service] resolving provenance for metadata file
+#94 DONE 1.2s
+
+#95 [auth-service] resolving provenance for metadata file
+#95 DONE 0.6s
+
+#91 [audit-service] resolving provenance for metadata file
+#91 DONE 0.9s
+
+#96 [sla-service] resolving provenance for metadata file
+#96 DONE 0.1s
+ Image serviceops-auth-service Built 
+ Image serviceops-itsm-service Built 
+ Image serviceops-sla-service Built 
+ Image serviceops-integrations-service Built 
+ Image serviceops-audit-service Built 
+ Image serviceops-workflow-service Built 
+ Image serviceops-web Built 
+ Image serviceops-cmdb-service Built 
+ Image serviceops-knowledge-service Built 
+ Container serviceops-postgres-1 Running 
+ Container serviceops-auth-service-1 Recreate 
+ Container serviceops-audit-service-1 Recreate 
+ Container serviceops-audit-service-1 Recreated 
+ Container serviceops-auth-service-1 Recreated 
+ Container serviceops-itsm-service-1 Recreate 
+ Container serviceops-knowledge-service-1 Recreate 
+ Container serviceops-cmdb-service-1 Recreate 
+ Container serviceops-integrations-service-1 Recreate 
+ Container serviceops-workflow-service-1 Recreate 
+ Container serviceops-cmdb-service-1 Recreated 
+ Container serviceops-workflow-service-1 Recreated 
+ Container serviceops-knowledge-service-1 Recreated 
+ Container serviceops-itsm-service-1 Recreated 
+ Container serviceops-sla-service-1 Recreate 
+ Container serviceops-web-1 Recreate 
+ Container serviceops-integrations-service-1 Recreated 
+ Container serviceops-sla-service-1 Recreated 
+ Container serviceops-web-1 Recreated 
+ Container serviceops-gateway-1 Running 
+ Container serviceops-postgres-1 Waiting 
+ Container serviceops-postgres-1 Waiting 
+ Container serviceops-postgres-1 Healthy 
+ Container serviceops-postgres-1 Healthy 
+ Container serviceops-auth-service-1 Starting 
+ Container serviceops-audit-service-1 Starting 
+ Container serviceops-auth-service-1 Started 
+ Container serviceops-postgres-1 Waiting 
+ Container serviceops-auth-service-1 Waiting 
+ Container serviceops-postgres-1 Waiting 
+ Container serviceops-auth-service-1 Waiting 
+ Container serviceops-postgres-1 Waiting 
+ Container serviceops-auth-service-1 Waiting 
+ Container serviceops-auth-service-1 Waiting 
+ Container serviceops-postgres-1 Waiting 
+ Container serviceops-audit-service-1 Started 
+ Container serviceops-audit-service-1 Waiting 
+ Container serviceops-postgres-1 Waiting 
+ Container serviceops-auth-service-1 Waiting 
+ Container serviceops-postgres-1 Healthy 
+ Container serviceops-postgres-1 Healthy 
+ Container serviceops-postgres-1 Healthy 
+ Container serviceops-postgres-1 Healthy 
+ Container serviceops-postgres-1 Healthy 
+ Container serviceops-auth-service-1 Healthy 
+ Container serviceops-auth-service-1 Healthy 
+ Container serviceops-workflow-service-1 Starting 
+ Container serviceops-auth-service-1 Healthy 
+ Container serviceops-cmdb-service-1 Starting 
+ Container serviceops-auth-service-1 Healthy 
+ Container serviceops-integrations-service-1 Starting 
+ Container serviceops-auth-service-1 Healthy 
+ Container serviceops-knowledge-service-1 Starting 
+ Container serviceops-knowledge-service-1 Started 
+ Container serviceops-workflow-service-1 Started 
+ Container serviceops-cmdb-service-1 Started 
+ Container serviceops-integrations-service-1 Started 
+ Container serviceops-audit-service-1 Healthy 
+ Container serviceops-itsm-service-1 Starting 
+ Container serviceops-itsm-service-1 Started 
+ Container serviceops-auth-service-1 Waiting 
+ Container serviceops-itsm-service-1 Waiting 
+ Container serviceops-auth-service-1 Waiting 
+ Container serviceops-itsm-service-1 Waiting 
+ Container serviceops-postgres-1 Waiting 
+ Container serviceops-postgres-1 Healthy 
+ Container serviceops-auth-service-1 Healthy 
+ Container serviceops-auth-service-1 Healthy 
+ Container serviceops-itsm-service-1 Healthy 
+ Container serviceops-itsm-service-1 Healthy 
+ Container serviceops-sla-service-1 Starting 
+ Container serviceops-web-1 Starting 
+ Container serviceops-sla-service-1 Started 
+ Container serviceops-web-1 Started 
+ Container serviceops-audit-service-1 Waiting 
+ Container serviceops-integrations-service-1 Waiting 
+ Container serviceops-sla-service-1 Waiting 
+ Container serviceops-workflow-service-1 Waiting 
+ Container serviceops-itsm-service-1 Waiting 
+ Container serviceops-cmdb-service-1 Waiting 
+ Container serviceops-auth-service-1 Waiting 
+ Container serviceops-knowledge-service-1 Waiting 
+ Container serviceops-cmdb-service-1 Healthy 
+ Container serviceops-auth-service-1 Healthy 
+ Container serviceops-itsm-service-1 Healthy 
+ Container serviceops-workflow-service-1 Healthy 
+ Container serviceops-knowledge-service-1 Healthy 
+ Container serviceops-integrations-service-1 Healthy 
+ Container serviceops-audit-service-1 Healthy 
+ Container serviceops-sla-service-1 Healthy 
+[wait_health] healthy: http://127.0.0.1:8080/healthz
+[up] Stack is up.
+[wait_health] healthy: http://127.0.0.1:8080/healthz
+[proof] Stopping proof stack without deleting volumes...
+ Container serviceops-gateway-1 Stopping 
+ Container serviceops-gateway-1 Stopped 
+ Container serviceops-gateway-1 Removing 
+ Container serviceops-gateway-1 Removed 
+ Container serviceops-workflow-service-1 Stopping 
+ Container serviceops-knowledge-service-1 Stopping 
+ Container serviceops-cmdb-service-1 Stopping 
+ Container serviceops-integrations-service-1 Stopping 
+ Container serviceops-web-1 Stopping 
+ Container serviceops-sla-service-1 Stopping 
+ Container serviceops-web-1 Stopped 
+ Container serviceops-web-1 Removing 
+ Container serviceops-web-1 Removed 
+ Container serviceops-sla-service-1 Stopped 
+ Container serviceops-sla-service-1 Removing 
+ Container serviceops-cmdb-service-1 Stopped 
+ Container serviceops-cmdb-service-1 Removing 
+ Container serviceops-sla-service-1 Removed 
+ Container serviceops-itsm-service-1 Stopping 
+ Container serviceops-cmdb-service-1 Removed 
+ Container serviceops-integrations-service-1 Stopped 
+ Container serviceops-integrations-service-1 Removing 
+ Container serviceops-knowledge-service-1 Stopped 
+ Container serviceops-knowledge-service-1 Removing 
+ Container serviceops-integrations-service-1 Removed 
+ Container serviceops-workflow-service-1 Stopped 
+ Container serviceops-workflow-service-1 Removing 
+ Container serviceops-knowledge-service-1 Removed 
+ Container serviceops-workflow-service-1 Removed 
+ Container serviceops-itsm-service-1 Stopped 
+ Container serviceops-itsm-service-1 Removing 
+ Container serviceops-itsm-service-1 Removed 
+ Container serviceops-audit-service-1 Stopping 
+ Container serviceops-auth-service-1 Stopping 
+ Container serviceops-audit-service-1 Stopped 
+ Container serviceops-audit-service-1 Removing 
+ Container serviceops-auth-service-1 Stopped 
+ Container serviceops-auth-service-1 Removing 
+ Container serviceops-audit-service-1 Removed 
+ Container serviceops-auth-service-1 Removed 
+ Container serviceops-postgres-1 Stopping 
+ Container serviceops-postgres-1 Stopped 
+ Container serviceops-postgres-1 Removing 
+ Container serviceops-postgres-1 Removed 
+ Network serviceops_serviceops-net Removing 
+ Network serviceops_serviceops-net Removed 
+Invoke-RestMethod : 
+502 Bad Gateway
+502 Bad Gateway
+nginx/1.27.5
+At C:\Users\91889\Music\projects\serviceops-suite\scripts\seed_demo.ps1:54 char:1
++ Invoke-RestMethod -Uri 'http://127.0.0.1:8080/api/knowledge/documents ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-RestMethod], WebExc 
+   eption
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeRestMethodCommand

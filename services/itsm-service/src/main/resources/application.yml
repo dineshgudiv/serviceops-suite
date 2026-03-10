@@ -1,0 +1,22 @@
+server:
+  port: ${SERVER_PORT:8082}
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:serviceops}
+    username: ${DB_USER:serviceops}
+    password: ${DB_PASSWORD:serviceops}
+  flyway:
+    default-schema: itsm
+    schemas: itsm
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${AUTH_JWKS_URI:http://localhost:8081/.well-known/jwks.json}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+app:
+  auditBaseUrl: ${AUDIT_BASE_URL:http://localhost:8088}

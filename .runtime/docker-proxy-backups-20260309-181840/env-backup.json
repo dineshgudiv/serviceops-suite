@@ -1,0 +1,13 @@
+{
+    "timestamp":  "20260309-181840",
+    "user":  {
+                 "http_proxy":  null,
+                 "https_proxy":  null,
+                 "no_proxy":  null
+             },
+    "machine":  {
+                    "http_proxy":  null,
+                    "https_proxy":  null,
+                    "no_proxy":  null
+                }
+}

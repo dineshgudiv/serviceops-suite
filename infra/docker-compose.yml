@@ -1,0 +1,228 @@
+name: serviceops
+networks:
+  serviceops-net:
+    driver: bridge
+volumes:
+  postgres-data:
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: serviceops
+      POSTGRES_PASSWORD: serviceops
+      POSTGRES_DB: serviceops
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U serviceops -d serviceops"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    networks: [serviceops-net]
+  mailpit:
+    image: axllent/mailpit:v1.25
+    ports: ["8025:8025"]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8025/api/v1/info >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 5s
+    networks: [serviceops-net]
+  auth-service:
+    build: { context: ../services/auth-service }
+    environment:
+      JAVA_TOOL_OPTIONS: -XX:+UseG1GC -XX:MaxRAMPercentage=60 -XX:InitialRAMPercentage=15 -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError
+      SERVER_PORT: 8081
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: serviceops
+      DB_USER: serviceops
+      DB_PASSWORD: serviceops
+      JWT_ISSUER: serviceops-auth
+      MAIL_DEV_MODE: "false"
+      MAIL_BASE_URL: http://127.0.0.1:8080
+      MAIL_FROM: no-reply@serviceops.local
+      MAILBOX_URL: http://127.0.0.1:8025
+      SPRING_MAIL_HOST: mailpit
+      SPRING_MAIL_PORT: 1025
+    depends_on: { postgres: { condition: service_healthy } }
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8081/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    networks: [serviceops-net]
+  audit-service:
+    build: { context: ../services/audit-service }
+    environment:
+      JAVA_TOOL_OPTIONS: -XX:+UseG1GC -XX:MaxRAMPercentage=60 -XX:InitialRAMPercentage=15 -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError
+      SERVER_PORT: 8088
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: serviceops
+      DB_USER: serviceops
+      DB_PASSWORD: serviceops
+      AUDIT_HMAC_SECRET: serviceops-audit-secret
+    depends_on: { postgres: { condition: service_healthy } }
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8088/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    networks: [serviceops-net]
+  itsm-service:
+    build: { context: ../services/itsm-service }
+    environment:
+      JAVA_TOOL_OPTIONS: -XX:+UseG1GC -XX:MaxRAMPercentage=60 -XX:InitialRAMPercentage=15 -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError
+      SERVER_PORT: 8082
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: serviceops
+      DB_USER: serviceops
+      DB_PASSWORD: serviceops
+      AUTH_JWKS_URI: http://auth-service:8081/.well-known/jwks.json
+      AUDIT_BASE_URL: http://audit-service:8088
+    depends_on:
+      postgres: { condition: service_healthy }
+      auth-service: { condition: service_healthy }
+      audit-service: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8082/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    networks: [serviceops-net]
+  sla-service:
+    build: { context: ../services/sla-service }
+    init: true
+    environment:
+      JAVA_TOOL_OPTIONS: -XX:+UseG1GC -XX:MaxRAMPercentage=60 -XX:InitialRAMPercentage=15 -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError
+      SERVER_PORT: 8083
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: serviceops
+      DB_USER: serviceops
+      DB_PASSWORD: serviceops
+      AUTH_JWKS_URI: http://auth-service:8081/.well-known/jwks.json
+    depends_on:
+      postgres: { condition: service_healthy }
+      auth-service: { condition: service_healthy }
+      itsm-service: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8083/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    networks: [serviceops-net]
+  cmdb-service:
+    build: { context: ../services/cmdb-service }
+    environment:
+      JAVA_TOOL_OPTIONS: -XX:+UseG1GC -XX:MaxRAMPercentage=60 -XX:InitialRAMPercentage=15 -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError
+      SERVER_PORT: 8084
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: serviceops
+      DB_USER: serviceops
+      DB_PASSWORD: serviceops
+      AUTH_JWKS_URI: http://auth-service:8081/.well-known/jwks.json
+      APP_AUDITBASEURL: http://audit-service:8088
+    depends_on:
+      postgres: { condition: service_healthy }
+      auth-service: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8084/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    networks: [serviceops-net]
+  knowledge-service:
+    build: { context: ../services/knowledge-service }
+    environment:
+      JAVA_TOOL_OPTIONS: -XX:+UseG1GC -XX:MaxRAMPercentage=60 -XX:InitialRAMPercentage=15 -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError
+      SERVER_PORT: 8085
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: serviceops
+      DB_USER: serviceops
+      DB_PASSWORD: serviceops
+      AUTH_JWKS_URI: http://auth-service:8081/.well-known/jwks.json
+    depends_on:
+      postgres: { condition: service_healthy }
+      auth-service: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8085/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    networks: [serviceops-net]
+  integrations-service:
+    build: { context: ../services/integrations-service }
+    environment:
+      JAVA_TOOL_OPTIONS: -XX:+UseG1GC -XX:MaxRAMPercentage=60 -XX:InitialRAMPercentage=15 -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError
+      SERVER_PORT: 8086
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: serviceops
+      DB_USER: serviceops
+      DB_PASSWORD: serviceops
+      AUTH_JWKS_URI: http://auth-service:8081/.well-known/jwks.json
+    depends_on:
+      postgres: { condition: service_healthy }
+      auth-service: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8086/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    networks: [serviceops-net]
+  workflow-service:
+    build: { context: ../services/workflow-service }
+    environment:
+      JAVA_TOOL_OPTIONS: -XX:+UseG1GC -XX:MaxRAMPercentage=60 -XX:InitialRAMPercentage=15 -XX:MaxGCPauseMillis=200 -XX:+ExitOnOutOfMemoryError
+      SERVER_PORT: 8087
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: serviceops
+      DB_USER: serviceops
+      DB_PASSWORD: serviceops
+      AUTH_JWKS_URI: http://auth-service:8081/.well-known/jwks.json
+    depends_on:
+      postgres: { condition: service_healthy }
+      auth-service: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8087/actuator/health | grep -q UP"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    networks: [serviceops-net]
+  web:
+    build: { context: ../apps/web }
+    environment:
+      PORT: 3000
+      GATEWAY_INTERNAL_URL: http://gateway:8080
+      SESSION_COOKIE_NAME: so_access
+      SESSION_SECRET: serviceops-web-secret
+    depends_on:
+      auth-service: { condition: service_healthy }
+      itsm-service: { condition: service_healthy }
+    networks: [serviceops-net]
+  gateway:
+    image: nginx:1.27-alpine
+    ports: ["8080:8080"]
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      auth-service: { condition: service_healthy }
+      itsm-service: { condition: service_healthy }
+      web: { condition: service_started }
+    networks: [serviceops-net]

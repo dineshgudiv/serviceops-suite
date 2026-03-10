@@ -1,0 +1,42 @@
+ALTER TABLE knowledge.documents
+  ADD COLUMN IF NOT EXISTS source_type TEXT NOT NULL DEFAULT 'kb',
+  ADD COLUMN IF NOT EXISTS source_ref TEXT,
+  ADD COLUMN IF NOT EXISTS approval_status TEXT NOT NULL DEFAULT 'approved',
+  ADD COLUMN IF NOT EXISTS visibility TEXT NOT NULL DEFAULT 'viewer',
+  ADD COLUMN IF NOT EXISTS service_key TEXT,
+  ADD COLUMN IF NOT EXISTS ci_key TEXT,
+  ADD COLUMN IF NOT EXISTS environment TEXT NOT NULL DEFAULT 'prod',
+  ADD COLUMN IF NOT EXISTS tags TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS excerpt TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS created_by TEXT NOT NULL DEFAULT 'system',
+  ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT now();
+
+CREATE TABLE IF NOT EXISTS knowledge.retrieval_logs (
+  id BIGSERIAL PRIMARY KEY,
+  org_key TEXT NOT NULL,
+  username TEXT NOT NULL,
+  role TEXT NOT NULL,
+  question TEXT NOT NULL,
+  refusal_code TEXT,
+  selected_doc_ids TEXT NOT NULL DEFAULT '',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS knowledge.policy_decisions (
+  id BIGSERIAL PRIMARY KEY,
+  org_key TEXT NOT NULL,
+  retrieval_log_id BIGINT REFERENCES knowledge.retrieval_logs(id) ON DELETE CASCADE,
+  decision_type TEXT NOT NULL,
+  decision TEXT NOT NULL,
+  reason TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS knowledge.rag_eval_runs (
+  id BIGSERIAL PRIMARY KEY,
+  org_key TEXT NOT NULL,
+  eval_name TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'NOT_IMPLEMENTED',
+  summary TEXT NOT NULL DEFAULT '',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);

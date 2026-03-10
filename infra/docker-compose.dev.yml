@@ -1,0 +1,12 @@
+services:
+  gateway-mock:
+    profiles: ["mock"]
+    image: python:3.12-slim
+    container_name: serviceops-gateway-mock
+    working_dir: /app
+    command: >
+      sh -c "pip install --no-cache-dir flask==3.0.3 && python server.py"
+    volumes:
+      - ../services/gateway:/app
+    ports:
+      - "8080:8080"
